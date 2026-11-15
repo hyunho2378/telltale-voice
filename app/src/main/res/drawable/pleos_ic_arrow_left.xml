@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pleos 공식 원본 GdPsTozIBUidTxFQOH0wXa ic_arrow Direction=left (1:6912) SVG_STRING 그대로. 색은 Compose에서 토큰으로 칠한다. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp" android:height="56dp" android:viewportWidth="56" android:viewportHeight="56">
+    <path android:fillType="evenOdd" android:fillColor="#FF131417" android:fillAlpha="1" android:pathData="M37.8166 10.0167C38.7278 10.9279 38.7278 12.4053 37.8166 13.3165L23.1332 27.9999L37.8166 42.6833C38.7278 43.5946 38.7278 45.0719 37.8166 45.9832C36.9054 46.8944 35.428 46.8944 34.5168 45.9832L18.1834 29.6498C17.2722 28.7386 17.2722 27.2612 18.1834 26.35L34.5168 10.0167C35.428 9.10545 36.9054 9.10545 37.8166 10.0167Z" />
+</vector>

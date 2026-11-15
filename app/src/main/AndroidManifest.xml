@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Pleos Vehicle 조회 권한(공식 vehicle 샘플 매니페스트와 02번 문서의 도메인 대응표에서 확인한 이름만) -->
+    <!-- Safety(경고등, 엔진 오일, 브레이크액) -->
+    <uses-permission android:name="pleos.car.permission.CAR_SAFETY" />
+    <!-- Safety.registerTelltales, unregisterTelltales (Pleos lint annotation) -->
+    <uses-permission android:name="pleos.car.permission.PRIVATE_CAR_SAFETY" />
+    <!-- Pleos TextToSpeech (Pleos lint annotation) -->
+    <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+    <!-- Light, TurnSignal(방향지시등) -->
+    <uses-permission android:name="pleos.car.permission.CAR_LIGHTS" />
+    <!-- Door(운전석 문, 트렁크 위치) -->
+    <uses-permission android:name="pleos.car.permission.CAR_DOORS" />
+    <!-- Fuel(연료 비율, 출발 전 점검). vehicle-permission 표: EvBattery, Fuel 은 CAR_ENERGY. Tire 는 CAR_SAFETY 와 PRIVATE_CAR_SAFETY(위에 있음) -->
+    <uses-permission android:name="pleos.car.permission.CAR_ENERGY" />
+    <!-- Brake(브레이크 페달) -->
+    <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />
+
+    <!-- Pleos NaviHelper(공식 navi 샘플 매니페스트) -->
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE_SEARCH" />
+
+    <!-- AAOS 표준 속성 GEAR_SELECTION, IGNITION_STATE, PARKING_BRAKE_ON (R3 2-2 표: CAR_POWERTRAIN, normal) -->
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+    <!-- AAOS 표준 속성 PERF_VEHICLE_SPEED(Pleos Vehicle App FAQ "클러스터 속도 조회 방법"). dangerous 권한이라 MainActivity 에서 승인을 요청함 -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+
+    <!-- 신호를 받는 foreground service (안드로이드 표준 권한) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.type.automotive" android:required="false" />
+
+    <!-- Pleos 시스템 테마 앱의 공식 아이콘을 읽음(패키지 공개 범위). 없는 기기는 앱이 그린 아이콘을 씀 -->
+    <queries>
+        <package android:name="ai.pleos.theme.connect" />
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_app"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.TelltaleVoice">
+
+        <uses-library android:name="android.car" android:required="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <!-- 주행 중 경고 안내 화면을 쓰기 위한 AAOS 표준 Distraction Optimized 선언 -->
+            <meta-data android:name="distractionOptimized" android:value="true" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Gleo Interface 수신부(assets/schema.json 의 actionCalls 3개, component "service" 는 sendBroadcast 로 옴) -->
+        <receiver
+            android:name=".GleoActionReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="TELL_ACTIVE_WARNING_LAMPS" />
+                <action android:name="REPEAT_LAST_GUIDANCE" />
+                <action android:name="FIND_NEARBY_REPAIR_SHOP" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".GuardService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Reads vehicle telltale signals while driving and speaks owner's manual guidance." />
+        </service>
+    </application>
+</manifest>

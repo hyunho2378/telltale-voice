@@ -1,0 +1,35 @@
+{
+  "packageName": "com.telltalevoice.app",
+  "appDescription": "An app that explains dashboard warning lamps by voice using the Hyundai owner's manual and tells the driver whether to stop now, drive to a rest area, or check after arrival.",
+  "invokeWord": "경고등 안내",
+  "version": "0.1.0",
+  "actionCalls": [
+    {
+      "type": "function",
+      "function": {
+        "name": "TELL_ACTIVE_WARNING_LAMPS",
+        "description": "Tells the driver by voice which dashboard warning lamps are on now and what the owner's manual says to do.",
+        "parameters": { "type": "object", "properties": {}, "required": [] },
+        "component": "service"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "REPEAT_LAST_GUIDANCE",
+        "description": "Repeats the most recent warning lamp guidance that this app spoke.",
+        "parameters": { "type": "object", "properties": {}, "required": [] },
+        "component": "service"
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "FIND_NEARBY_REPAIR_SHOP",
+        "description": "Finds the nearest car repair shop from the current location, preferring Hyundai Bluehands shops, and tells its name and distance by voice.",
+        "parameters": { "type": "object", "properties": {}, "required": [] },
+        "component": "service"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+captures/
+.kotlin/
+apk/*-debug.apk
+/telltale-voice-debug.apk
+
+# release 서명 키와 비밀번호(저장소 밖 ../keystore 에 둠)
+*.jks
+*.keystore
+keystore.properties
+keystore/
+
+# 갱신 스크립트는 내부 문서라 공개 저장소에 올리지 않는다
+PUBLISH.sh
